@@ -1,0 +1,14 @@
+spring:
+    datasource:
+        password: registrApp-001
+        url: jdbc:mysql://localhost:3306/registrapp_db
+        username: registrapp-dba
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                format_sql: true
+        show-sql: true
