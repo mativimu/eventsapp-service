@@ -1,4 +1,6 @@
 spring:
+    main:
+        allow-circular-references: true
     datasource:
         password: registrApp-001
         url: jdbc:mysql://localhost:3306/registrapp_db
@@ -12,3 +14,7 @@ spring:
                 dialect: org.hibernate.dialect.MySQL8Dialect
                 format_sql: true
         show-sql: true
+
+jwt:
+    secret: secret-key
+    expiration: 300000
