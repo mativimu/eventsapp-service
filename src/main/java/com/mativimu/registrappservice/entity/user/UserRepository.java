@@ -1,4 +1,4 @@
-package com.mativimu.registrappservice.user;
+package com.mativimu.registrappservice.components.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

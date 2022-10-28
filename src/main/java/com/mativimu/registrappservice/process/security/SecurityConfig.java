@@ -1,4 +1,4 @@
-package com.mativimu.registrappservice.security;
+package com.mativimu.registrappservice.processes.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.mativimu.registrappservice.auth.AuthSuccessHandler;
-import com.mativimu.registrappservice.auth.CustomAuthenticationFilter;
+import com.mativimu.registrappservice.processes.auth.AuthSuccessHandler;
+import com.mativimu.registrappservice.processes.auth.CustomAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
 

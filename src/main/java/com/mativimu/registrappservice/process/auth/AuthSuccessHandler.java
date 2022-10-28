@@ -1,4 +1,4 @@
-package com.mativimu.registrappservice.auth;
+package com.mativimu.registrappservice.processes.auth;
 
 import java.io.IOException;
 import java.util.Date;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.mativimu.registrappservice.user.User;
+import com.mativimu.registrappservice.components.user.User;
 
 
 @Component
