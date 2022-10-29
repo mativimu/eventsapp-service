@@ -1,4 +1,4 @@
-package com.mativimu.registrappservice.components.user;
+package com.mativimu.registrappservice.entities.user;
 
 import java.net.URI;
 import java.util.List;
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class UserResource {
+public class UserController {
     private final UserService userService;
 
     @GetMapping("/users")
