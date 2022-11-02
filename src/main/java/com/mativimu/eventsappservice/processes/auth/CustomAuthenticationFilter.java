@@ -1,4 +1,4 @@
-package com.mativimu.registrappservice.processes.auth;
+package com.mativimu.eventsappservice.processes.auth;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

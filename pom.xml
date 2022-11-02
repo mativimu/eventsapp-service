@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mativimu</groupId>
-	<artifactId>registrapp-service</artifactId>
+	<artifactId>eventsapp-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>registrapp-service</name>
-	<description>RegistrApp Service Application</description>
+	<name>eventsapp-service</name>
+	<description>EventsApp Service Application</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

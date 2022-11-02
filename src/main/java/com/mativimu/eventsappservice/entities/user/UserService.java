@@ -1,4 +1,4 @@
-package com.mativimu.registrappservice.entity.user;
+package com.mativimu.eventsappservice.entities.user;
 
 import java.util.List;
 

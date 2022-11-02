@@ -1,18 +1,23 @@
-package com.mativimu.registrappservice.entity.user;
+package com.mativimu.eventsappservice.entities.user;
+
+import java.util.List;
 
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
 
+import com.mativimu.eventsappservice.entities.event.Event;
 
 @Table
-@Entity
+@Entity(name = "User")
 public class User {
     @Id
     @SequenceGenerator(
@@ -31,7 +36,13 @@ public class User {
     private String password;
     private String occupation;
 
-    @Autowired
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Participant",
+                joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+                inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id")
+                )
+    private List<Event> event;
+
     public User(String name, String username, String email, String password, String occupation) {
         this.name = name;
         this.username = username;

@@ -1,20 +1,20 @@
-package com.mativimu.registrappservice.entity.event;
+package com.mativimu.eventsappservice.entities.event;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
-@Table
-@Entity
+@Entity(name = "Event")
+@Table(name = "events")
 public class Event {
 
     @Id
@@ -26,29 +26,36 @@ public class Event {
     @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
         generator = "event_sequence")
-    private Long id;
+    @Column(name = "event_id")
+    private Long eventId;
 
+    @Column(name = "code")
     private String code;
-    private String name;
+
+    @Column(name = "name_name")
+    private String eventName;
+
+    @Column(name = "type")
     private String type;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
-    
+    @Column(name = "date")
+    private Date date = new Date();
+
+    @Column(name = "expired")
     private boolean expired;
 
+    @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date created_at;
+    private Date createdAt;
 
 
-    @Autowired
-    public Event(String code, String name, String type, Date date, Date created_at,boolean expired) {
+    public Event(String code, String eventName, String type, Date date, boolean expired) {
         this.code = code;
-        this.name = name;
+        this.eventName = eventName;
         this.type = type;
         this.date = date;
         this.expired = expired;
-        this.created_at = created_at;
     }
 
     public String getCode() {
@@ -60,11 +67,11 @@ public class Event {
     }
 
     public String getName() {
-        return name;
+        return eventName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public String getType() {

@@ -1,10 +1,10 @@
-package com.mativimu.registrappservice.entity.participant;
+package com.mativimu.eventsappservice.entities.participant;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Table
 @Entity
+@Table(name = "Participant")
 public class Participant {
     
     private Long user_id;

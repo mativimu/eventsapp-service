@@ -1,4 +1,4 @@
-package com.mativimu.registrappservice.entities.user;
+package com.mativimu.eventsappservice.entities.user;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.mativimu.registrappservice.entities.user.User user = userRepo.findByUsername(username);
+        com.mativimu.eventsappservice.entities.user.User user = userRepo.findByUsername(username);
         if(user == null){
             log.info("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
@@ -39,7 +39,7 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
     }
 
     @Override
-    public com.mativimu.registrappservice.entities.user.User saveUser(com.mativimu.registrappservice.entities.user.User user) {
+    public com.mativimu.eventsappservice.entities.user.User saveUser(com.mativimu.eventsappservice.entities.user.User user) {
         log.info("Saving new user {} to the database", user.getUsername());
         log.info("password: {}", user.getPassword());
         user.setPassword(passwordEncoder().encode(user.getPassword()));
@@ -47,7 +47,7 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
     }
 
     @Override
-    public com.mativimu.registrappservice.entities.user.User getUser(String username) {
+    public com.mativimu.eventsappservice.entities.user.User getUser(String username) {
         log.info("Fetching {} user", username);
         User user = userRepo.findByUsername(username);
         log.info("user: {}", user);
@@ -60,7 +60,7 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
       }
 
     @Override
-    public List<com.mativimu.registrappservice.entities.user.User> getUsers() {
+    public List<com.mativimu.eventsappservice.entities.user.User> getUsers() {
         log.info("Fetching all users");
         return userRepo.findAll();
     }

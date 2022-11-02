@@ -1,4 +1,4 @@
-package com.mativimu.registrappservice.entity.participant;
+package com.mativimu.eventsappservice.entities.participant;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
