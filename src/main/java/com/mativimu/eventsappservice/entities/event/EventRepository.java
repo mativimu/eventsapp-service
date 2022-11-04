@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface EventRepository 
             extends JpaRepository<Event, Long> {
     
-    @Query("SELECT * FROM events WHERE events.code = :code ")
+    @Query("SELECT e FROM Event e WHERE e.eventCode = :code")
     public Event findEventByCode(@Param("code") String code);
 }

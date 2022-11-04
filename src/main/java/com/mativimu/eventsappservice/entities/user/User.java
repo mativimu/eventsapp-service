@@ -1,62 +1,73 @@
 package com.mativimu.eventsappservice.entities.user;
 
-import java.util.List;
 
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
+import com.google.common.hash.Hashing;
+import com.mativimu.eventsappservice.entities.participant.Participant;
+
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
 
-import com.mativimu.eventsappservice.entities.event.Event;
 
-@Table
-@Entity(name = "User")
+@Entity
+@Table(name = "users")
 public class User {
     @Id
     @SequenceGenerator(
-        name = "user_sequence",
-        sequenceName = "user_sequence",
+        name = "users_sequence",
+        sequenceName = "users_sequence",
         allocationSize = 10
     )
     @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
-        generator = "user_sequence")
-    private Long id;
+        generator = "users_sequence")
+    @Column(name = "user_id"
+    )
+    private Long userId;
 
-    private String name;
+    @Column(name = "username", nullable = false, unique = false, length = 25)
     private String username;
-    private String email;
-    private String password;
-    private String occupation;
+    
+    @Column(name = "user_email", nullable = false, unique = true, length = 30)
+    private String userEmail;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Participant",
-                joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id")
-                )
-    private List<Event> event;
+    @Column(name = "user_password", nullable = false, unique = true)
+    private String userPassword;
 
-    public User(String name, String username, String email, String password, String occupation) {
-        this.name = name;
+    @Column(name = "full_name", nullable = false, unique = false, length = 30)
+    private String fullName;
+
+    @Column(name = "user_occupation", nullable = true, unique = false, length = 30)
+    private String userOccupation;
+
+    @OneToMany(
+        mappedBy = "user",
+        cascade = CascadeType.ALL,
+        fetch = FetchType.EAGER,
+        orphanRemoval = true
+    )
+    private List<Participant> participant = new ArrayList<>();
+
+
+    public User(String username, String userEmail, String userPassword, String fullName, String userOccupation) {
         this.username = username;
-        this.email = email;
-        this.password = password;
-        this.occupation = occupation;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.userEmail = userEmail;
+        setUserPassword(userPassword);
+        this.fullName = fullName;
+        this.userOccupation = userOccupation;
     }
 
     public String getUsername() {
@@ -67,28 +78,39 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String userPassword) {
+        String hashedPassword = Hashing.sha256()
+            .hashString(userPassword, StandardCharsets.UTF_8)
+            .toString();
+        this.userPassword = hashedPassword;
     }
 
-    public String getDescription() {
-        return occupation;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setoccupation(String occupation) {
-        this.occupation = occupation;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
-    
+
+    public String getUserOccupation() {
+        return userOccupation;
+    }
+
+    public void setUserOccupation(String userOccupation) {
+        this.userOccupation = userOccupation;
+    }
+
 }

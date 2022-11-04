@@ -35,14 +35,13 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
             throw new UsernameNotFoundException("User not found in the database");
         }
         log.info("User founded in the database: {}", user.getUsername());
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), null);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getUserPassword(), null);
     }
 
     @Override
     public com.mativimu.eventsappservice.entities.user.User saveUser(com.mativimu.eventsappservice.entities.user.User user) {
         log.info("Saving new user {} to the database", user.getUsername());
-        log.info("password: {}", user.getPassword());
-        user.setPassword(passwordEncoder().encode(user.getPassword()));
+        log.info("password: {}", user.getUserPassword());
         return userRepo.save(user);
     }
 

@@ -2,9 +2,9 @@ spring:
     main:
         allow-circular-references: true
     datasource:
-        password: registrApp-001
-        url: jdbc:mysql://localhost:3306/registrapp_db
-        username: registrapp-dba
+        password: 3v3nt$4Pp
+        url: jdbc:mysql://localhost:3306/eventsapp_db
+        username: eventsapp_admin
         driver-class-name: com.mysql.cj.jdbc.Driver
     jpa:
         hibernate:
@@ -14,7 +14,6 @@ spring:
                 dialect: org.hibernate.dialect.MySQL8Dialect
                 format_sql: true
         show-sql: true
-
-jwt:
-    secret: secret-key
-    expiration: 300000
+server:
+    error:
+        inlcude-message: always

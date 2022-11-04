@@ -1,48 +1,89 @@
 package com.mativimu.eventsappservice.entities.participant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.engine.spi.Mapping;
+
+import com.mativimu.eventsappservice.entities.event.Event;
+import com.mativimu.eventsappservice.entities.user.User;
+
 @Entity
-@Table(name = "Participant")
+@Table(name = "participants")
 public class Participant {
     
-    private Long user_id;
-    private Long event_id;
-    private String status;
-    private boolean attendance;
+    @Id
+    @SequenceGenerator(
+        name = "participants_sequence",
+        sequenceName = "participants_sequence",
+        allocationSize = 10
+        )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "participants_sequence")
+    @Column(name = "participant_id")
+    private Long participantId;
 
-    public Participant(Long user_id, Long event_id, String status, boolean attendance) {
-        this.user_id = user_id;
-        this.event_id = event_id;
-        this.status = status;
-        this.attendance = attendance;
-    }
+    @Column(name = "participant_status", nullable = false, unique = false, length = 8)
+    private String participantStatus;
 
-    public Long getUser_id() {
-        return user_id;
-    }
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
-    public Long getEvent_id() {
-        return event_id;
-    }
-    public void setEvent_id(Long event_id) {
-        this.event_id = event_id;
-    }
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public boolean isAttendance() {
-        return attendance;
-    }
-    public void setAttendance(boolean attendance) {
-        this.attendance = attendance;
+    @Column(name = "event_attendance", nullable = false, unique = false)
+    private boolean eventAttendance;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_id", referencedColumnName = "event_id")
+    private Event event;
+
+    public Participant(String participantStatus, boolean eventAttendance, User user, Event event) {
+        this.participantStatus = participantStatus;
+        this.eventAttendance = eventAttendance;
+        this.user = user;
+        this.event = event;
     }
 
+    public String getParticipantStatus() {
+        return participantStatus;
+    }
+
+    public void setParticipantStatus(String participantStatus) {
+        this.participantStatus = participantStatus;
+    }
+
+    public boolean isEventAttendance() {
+        return eventAttendance;
+    }
+
+    public void setEventAttendance(boolean eventAttendance) {
+        this.eventAttendance = eventAttendance;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
     
 }
