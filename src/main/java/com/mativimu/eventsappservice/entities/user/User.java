@@ -38,22 +38,22 @@ public class User {
     )
     private Long userId;
 
-    @Column(name = "username", nullable = false, unique = false, length = 25)
+    @Column(name = "username", nullable = false, length = 25)
     private String username;
     
     @Column(name = "user_email", nullable = false, unique = true, length = 30)
     private String userEmail;
 
-    @Column(name = "user_password", nullable = false, unique = true)
+    @Column(name = "user_password", nullable = false, unique = true, length = 64)
     private String userPassword;
 
-    @Column(name = "full_name", nullable = false, unique = false, length = 30)
+    @Column(name = "full_name", nullable = false, length = 30)
     private String fullName;
 
-    @Column(name = "user_occupation", nullable = true, unique = false, length = 30)
+    @Column(name = "user_occupation", nullable = true, length = 30)
     private String userOccupation;
 
-    @OneToMany(
+    @OneToMany( 
         mappedBy = "user",
         cascade = CascadeType.ALL,
         fetch = FetchType.EAGER,

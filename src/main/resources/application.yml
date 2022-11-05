@@ -11,9 +11,6 @@ spring:
             ddl-auto: create-drop
         properties:
             hibernate:
-                dialect: org.hibernate.dialect.MySQL8Dialect
+                dialect: org.hibernate.dialect.MySQL5Dialect
                 format_sql: true
         show-sql: true
-server:
-    error:
-        inlcude-message: always

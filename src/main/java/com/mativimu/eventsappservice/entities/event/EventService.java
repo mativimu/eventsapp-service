@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ServerErrorException;
 
 
 @Service
@@ -44,13 +43,8 @@ public class EventService {
     }
 
     @Transactional
-    public void updateEvent(
-        Long eventId,
-        String eventCode, 
-        String eventName, 
-        String eventType, 
-        Date eventDate
-        ) throws DataAccessException {
+    public void updateEvent(Long eventId, String eventCode, 
+                            String eventName,String eventType, Date eventDate) throws DataAccessException {
 
         boolean exists = eventRepository.existsById(eventId);
         if(!exists){
@@ -60,7 +54,7 @@ public class EventService {
         event.setEventCode(eventCode);
         event.setEventName(eventName);
         event.setEventType(eventType);
-        event.setEventDate(eventDate);    
+        event.setEventDate(eventDate);
     }
-
+    
 }

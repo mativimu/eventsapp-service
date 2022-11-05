@@ -3,7 +3,6 @@ package com.mativimu.eventsappservice.entities.participant;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.engine.spi.Mapping;
 
 import com.mativimu.eventsappservice.entities.event.Event;
 import com.mativimu.eventsappservice.entities.user.User;
@@ -33,10 +31,10 @@ public class Participant {
     @Column(name = "participant_id")
     private Long participantId;
 
-    @Column(name = "participant_status", nullable = false, unique = false, length = 8)
+    @Column(name = "participant_status", nullable = false, length = 8)
     private String participantStatus;
 
-    @Column(name = "event_attendance", nullable = false, unique = false)
+    @Column(name = "event_attendance", nullable = false)
     private boolean eventAttendance;
 
     @ManyToOne(fetch = FetchType.LAZY)
