@@ -1,5 +1,7 @@
 package com.mativimu.eventsappservice.entities.event;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,5 +12,5 @@ public interface EventRepository
             extends JpaRepository<Event, Long> {
     
     @Query("SELECT e FROM Event e WHERE e.eventCode = :code")
-    public Event findEventByCode(@Param("code") String code);
+    public List<Event> findEventByCode(@Param("code") String code);
 }

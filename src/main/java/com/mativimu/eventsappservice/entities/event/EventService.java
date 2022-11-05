@@ -30,8 +30,20 @@ public class EventService {
         return event;
     }
 
-    public Event getEventByCode(String code) {
-        return eventRepository.findEventByCode(code);
+    public List<Event> getEventByCode(String eventCode) {
+        List<Event> events = eventRepository.findEventByCode(eventCode);
+        if(events.size() == 0) {
+            throw new IllegalStateException("There is no events with " + eventCode + "code");
+        }
+        return events;
+    }
+
+    public void addEvent(Event event) throws DataAccessException {
+        boolean exists = eventRepository.existsById(event.getEventId());
+        if(!exists) {
+            throw new IllegalStateException("Event with id " + event.getEventId() + " not found");
+        }
+        eventRepository.save(event);
     }
     
     public void deleteEvent(Long eventId) {

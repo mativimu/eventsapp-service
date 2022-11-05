@@ -67,6 +67,11 @@ public class Event {
         this.eventType = eventType;
         this.eventDate = eventDate;
     }
+
+    public Long getEventId() {
+        return this.eventId;
+    }
+
     public String getEventCode() {
         return eventCode;
     }
