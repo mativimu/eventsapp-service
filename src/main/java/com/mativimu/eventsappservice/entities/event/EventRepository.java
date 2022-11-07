@@ -13,4 +13,7 @@ public interface EventRepository
     
     @Query("SELECT e FROM Event e WHERE e.eventCode = :code")
     public List<Event> findEventByCode(@Param("code") String code);
+
+    @Query("SELECT e FROM Event e WHERE e.fingerprint = :fingerprint")
+    public List<Event> findEventByFingerprint(@Param("fingerprint") String fingerprint);
 }

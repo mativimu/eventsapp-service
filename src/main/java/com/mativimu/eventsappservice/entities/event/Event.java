@@ -1,5 +1,6 @@
 package com.mativimu.eventsappservice.entities.event;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.google.common.hash.Hashing;
 import com.mativimu.eventsappservice.entities.participant.Participant;
 
 
@@ -36,13 +38,13 @@ public class Event {
     @Column(name = "event_id")
     private Long eventId;
 
-    @Column(name = "event_code", nullable = true, length = 10)
+    @Column(name = "event_code", nullable = false, length = 10)
     private String eventCode;
 
-    @Column(name = "event_name", nullable = true, length = 25)
+    @Column(name = "event_name", length = 100)
     private String eventName;
 
-    @Column(name = "event_type", nullable = true, length = 20)
+    @Column(name = "event_type", length = 20)
     private String eventType;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -51,7 +53,7 @@ public class Event {
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date createdAt = new Date();
+    private Date createdAt = new Date()     ;
 
     @OneToMany(
         mappedBy = "event",
@@ -61,11 +63,16 @@ public class Event {
     )
     private List<Participant> participants = new ArrayList<>();
 
+    private String fingerprint;
+
+    public Event() {}
+
     public Event(String eventCode, String eventName, String eventType, Date eventDate) {
         this.eventCode = eventCode;
         this.eventName = eventName;
         this.eventType = eventType;
         this.eventDate = eventDate;
+        setFingerprint();
     }
 
     public Long getEventId() {
@@ -104,4 +111,13 @@ public class Event {
         this.eventDate = date;
     }
 
+    public String getFingerprint() {
+        return this.fingerprint;
+    }
+
+    private void setFingerprint() {
+        String source = this.eventCode + this.eventName + this.eventType + this.eventDate;
+        this.fingerprint = Hashing.sha256()
+            .hashString(source , StandardCharsets.UTF_8).toString();
+    }
 }

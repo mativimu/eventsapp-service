@@ -44,7 +44,7 @@ public class User {
     @Column(name = "user_email", nullable = false, unique = true, length = 30)
     private String userEmail;
 
-    @Column(name = "user_password", nullable = false, unique = true, length = 64)
+    @Column(name = "user_password", nullable = false, length = 64)
     private String userPassword;
 
     @Column(name = "full_name", nullable = false, length = 30)
@@ -61,6 +61,7 @@ public class User {
     )
     private List<Participant> participant = new ArrayList<>();
 
+    public User(){}
 
     public User(String username, String userEmail, String userPassword, String fullName, String userOccupation) {
         this.username = username;
@@ -68,6 +69,10 @@ public class User {
         setUserPassword(userPassword);
         this.fullName = fullName;
         this.userOccupation = userOccupation;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 
     public String getUsername() {

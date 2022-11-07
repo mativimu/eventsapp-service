@@ -32,13 +32,14 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @GetMapping("/user/{username}") public ResponseEntity<User> getUser(@PathVariable("username") String username) {
-        return ResponseEntity.ok().body(userService.getUser(username));
+    @GetMapping("/user/{email}") public ResponseEntity<User> getUser(@PathVariable("email") String email) {
+        return ResponseEntity.ok().body(userService.getUserByEmail(email));
     }
 
-    @PostMapping("/user/save")
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
-    }
+//    @PostMapping("/user/save")
+//    public ResponseEntity<User> saveUser(@RequestBody User user) {
+//        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toString());
+//        return ResponseEntity.created(uri).body(userService.addUser(...));
+//    }
+
 }
