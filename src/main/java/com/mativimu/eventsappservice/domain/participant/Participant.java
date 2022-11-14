@@ -1,4 +1,4 @@
-package com.mativimu.eventsappservice.entities.participant;
+package com.mativimu.eventsappservice.domain.participant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
-import com.mativimu.eventsappservice.entities.event.Event;
-import com.mativimu.eventsappservice.entities.user.User;
+import com.mativimu.eventsappservice.domain.event.Event;
+import com.mativimu.eventsappservice.domain.user.User;
 
 @Entity
 @Table(name = "participants")

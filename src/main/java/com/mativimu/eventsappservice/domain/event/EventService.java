@@ -1,11 +1,10 @@
-package com.mativimu.eventsappservice.entities.event;
+package com.mativimu.eventsappservice.domain.event;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,27 +21,31 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
-    public List<Event> getEvents() throws DataAccessException {
+    public List<Event> getEvents() {
         return eventRepository.findAll();
     }
 
-    public Event getEventById(Long eventId) throws DataAccessException {
+    public Event getEventById(Long eventId) {
         Event event = eventRepository.findById(eventId)
             .orElseThrow(() -> 
                 new IllegalStateException("Event with id "+ eventId + " not found"));
         return event;
     }
 
-    public List<Event> getEventsByCode(String eventCode) throws DataAccessException {
+    public List<Event> getEventsByCode(String eventCode) {
         return eventRepository.findEventByCode(eventCode);
     }
 
+    public Event getEventByFingerprint(String fingerprint) {
+        return eventRepository.findEventByFingerprint(fingerprint).get(0);
+    }
+
     public void addEvent(String eventCode, String eventName,
-                            String eventType, Date eventDate) throws DataAccessException {
+                            String eventType, Date eventDate) {
         Event event = new Event(eventCode, eventName, eventType, eventDate);
         List<Event> events = eventRepository.findEventByFingerprint(event.getFingerprint());
         if(!events.isEmpty()) {
-            throw new IllegalStateException("Event with code " + eventCode + " already exists");
+            throw new IllegalStateException("Event already exists");
         }
         eventRepository.save(event);
     }
@@ -57,7 +60,7 @@ public class EventService {
 
     @Transactional
     public void updateEvent(Long eventId, String eventCode, String eventName,
-                            String eventType, Date eventDate) throws DataAccessException {
+                            String eventType, Date eventDate) {
         String fingerprint = Hashing.sha256()
             .hashString(eventCode + eventName + eventType + eventDate, StandardCharsets.UTF_8).toString();
         List<Event> events = eventRepository.findEventByFingerprint(fingerprint);

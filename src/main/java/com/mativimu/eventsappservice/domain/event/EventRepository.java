@@ -1,4 +1,4 @@
-package com.mativimu.eventsappservice.entities.event;
+package com.mativimu.eventsappservice.domain.event;
 
 import java.util.List;
 

@@ -1,14 +1,16 @@
-package com.mativimu.eventsappservice.entities.participant;
+package com.mativimu.eventsappservice.domain.participant;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.mativimu.eventsappservice.entities.event.Event;
-import com.mativimu.eventsappservice.entities.event.EventService;
-import com.mativimu.eventsappservice.entities.user.UserService;
+import com.mativimu.eventsappservice.domain.event.Event;
+import com.mativimu.eventsappservice.domain.event.EventService;
+import com.mativimu.eventsappservice.domain.user.User;
+import com.mativimu.eventsappservice.domain.user.UserService;
 
 @Service
 public class ParticipantService {
@@ -25,7 +27,7 @@ public class ParticipantService {
         this.eventService = eventService;
     }
 
-    public Participant getParticipantById(Long participantId) throws DataAccessException {
+    public Participant getParticipantById(Long participantId) {
         boolean exists = participantRepository.existsById(participantId);
         if(!exists) {
             throw new IllegalStateException("Participant with id " + participantId + " not found");
@@ -33,23 +35,28 @@ public class ParticipantService {
         return participantRepository.findById(participantId).get();
     }
 
-    public List<Participant> getParticipantsByEvent(Event event) throws DataAccessException {
-        return participantRepository.findEventParticipants(event.getEventId());
+    public List<User> getUsersByEvent(Long eventId) {
+        return participantRepository.findEventParticipants(eventId);
     }
 
-    public void addParticipant(String participantStatus, String attendanceProved, Long userId, Long eventID) {
-        boolean exists = participantRepository.existsById(userId + eventID);
+    public List<Event> getEventsByUserIdAndStatus(Long userId, String status){
+        return participantRepository.findUserEventsByIdAndStatus(userId, status);
+    }
+
+    public void addParticipant(String participantStatus, String attendanceProved, Long userId, Long eventId) {
+        boolean exists = participantRepository.existsById(userId + eventId);
         if(exists) {
             throw new IllegalStateException("Participant already exists");
         }
         participantRepository.save(
             new Participant(
-                participantStatus, userService.getUserById(userId), eventService.getEventById(eventID)
+                participantStatus, userService.getUserById(userId), eventService.getEventById(eventId)
             )
         );
     }
 
-    public void updateAttendanceProved(Long userId, Long eventID, String attendanceProved) throws DataAccessException {
+    @Transactional
+    public void updateAttendanceProved(Long userId, Long eventID, String attendanceProved) {
         Long participantID = userId + eventID;
         boolean exists = participantRepository.existsById(participantID);
         if(!exists) {
@@ -59,7 +66,7 @@ public class ParticipantService {
             .setAttendanceProved(attendanceProved);
     }
 
-    public void deleteParticpant(Long participantID) throws DataAccessException{
+    public void deleteParticipant(Long participantID) throws DataAccessException{
         boolean exists = participantRepository.existsById(participantID);
         if(!exists) {
             throw new IllegalStateException("Participant with id " + participantID + " not found");

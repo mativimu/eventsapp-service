@@ -1,13 +1,11 @@
-package com.mativimu.eventsappservice.entities.user;
-
+package com.mativimu.eventsappservice.domain.user;
 
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 import com.google.common.hash.Hashing;
-import com.mativimu.eventsappservice.entities.participant.Participant;
+import com.mativimu.eventsappservice.domain.participant.Participant;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -63,7 +61,8 @@ public class User {
 
     public User(){}
 
-    public User(String username, String userEmail, String userPassword, String fullName, String userOccupation) {
+    public User(String username, String userEmail,
+                String userPassword, String fullName, String userOccupation) {
         this.username = username;
         this.userEmail = userEmail;
         setUserPassword(userPassword);
@@ -97,8 +96,7 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         String hashedPassword = Hashing.sha256()
-            .hashString(userPassword, StandardCharsets.UTF_8)
-            .toString();
+        .hashString(userPassword, StandardCharsets.UTF_8).toString();
         this.userPassword = hashedPassword;
     }
 

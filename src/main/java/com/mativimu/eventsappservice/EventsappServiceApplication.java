@@ -7,12 +7,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.mativimu.eventsappservice.entities.event.Event;
-import com.mativimu.eventsappservice.entities.event.EventRepository;
-import com.mativimu.eventsappservice.entities.participant.Participant;
-import com.mativimu.eventsappservice.entities.participant.ParticipantRepository;
-import com.mativimu.eventsappservice.entities.user.User;
-import com.mativimu.eventsappservice.entities.user.UserRepository;
+import com.mativimu.eventsappservice.domain.event.Event;
+import com.mativimu.eventsappservice.domain.event.EventRepository;
+import com.mativimu.eventsappservice.domain.participant.Participant;
+import com.mativimu.eventsappservice.domain.participant.ParticipantRepository;
+import com.mativimu.eventsappservice.domain.user.User;
+import com.mativimu.eventsappservice.domain.user.UserRepository;
 
 @SpringBootApplication
 public class EventsappServiceApplication {

@@ -1,4 +1,4 @@
-package com.mativimu.eventsappservice.entities.event;
+package com.mativimu.eventsappservice.domain.event;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.google.common.hash.Hashing;
-import com.mativimu.eventsappservice.entities.participant.Participant;
+import com.mativimu.eventsappservice.domain.participant.Participant;
 
 
 @Entity
@@ -63,6 +63,7 @@ public class Event {
     )
     private List<Participant> participants = new ArrayList<>();
 
+    @Column(name = "event_fingerprint", nullable = false, unique = true, length = 64)
     private String fingerprint;
 
     public Event() {}
@@ -80,7 +81,7 @@ public class Event {
     }
 
     public String getEventCode() {
-        return eventCode;
+        return this.eventCode;
     }
 
     public void setEventCode(String code) {
@@ -116,8 +117,8 @@ public class Event {
     }
 
     private void setFingerprint() {
-        String source = this.eventCode + this.eventName + this.eventType + this.eventDate;
+        String hashingSource = this.eventCode + this.eventName + this.eventType + this.eventDate;
         this.fingerprint = Hashing.sha256()
-            .hashString(source , StandardCharsets.UTF_8).toString();
+            .hashString(hashingSource , StandardCharsets.UTF_8).toString();
     }
 }

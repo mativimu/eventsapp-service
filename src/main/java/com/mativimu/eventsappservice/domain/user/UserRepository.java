@@ -1,4 +1,4 @@
-package com.mativimu.eventsappservice.entities.user;
+package com.mativimu.eventsappservice.domain.user;
 
 import java.util.List;
 
@@ -12,5 +12,8 @@ public interface UserRepository
             extends JpaRepository<User, Long> {
     
     @Query("SELECT u FROM User u WHERE u.userEmail = :email")
-    public List<User> findUserByEmail(@Param("email") String userEmail);
+    public List<User> findUserByEmail(@Param("email") String email);
+
+    @Query("SELECT u FROM User u WHERE u.username = :username")
+    public List<User> findUserByUsername(@Param("username") String username);
 }
