@@ -46,7 +46,7 @@ public class User {
     private String userPassword;
 
     @Column(name = "full_name", nullable = false, length = 30)
-    private String fullName;
+    private String userFullName;
 
     @Column(name = "user_occupation", nullable = true, length = 30)
     private String userOccupation;
@@ -62,11 +62,11 @@ public class User {
     public User(){}
 
     public User(String username, String userEmail,
-                String userPassword, String fullName, String userOccupation) {
+                String userPassword, String userFullName, String userOccupation) {
         this.username = username;
         this.userEmail = userEmail;
         setUserPassword(userPassword);
-        this.fullName = fullName;
+        this.userFullName = userFullName;
         this.userOccupation = userOccupation;
     }
 
@@ -100,12 +100,12 @@ public class User {
         this.userPassword = hashedPassword;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getUserFullName() {
+        return userFullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
     }
 
     public String getUserOccupation() {

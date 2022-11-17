@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mativimu.eventsappservice.security.TokenUtils;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -63,13 +64,13 @@ public class UserController {
             user.getUsername(),
             user.getUserEmail(),
             user.getUserPassword(),
-            user.getFullName(),
+            user.getUserFullName(),
             user.getUserOccupation()
         );
         return ResponseEntity.ok().body("User saved");
     }
 
-    @DeleteMapping("/id/{id}/remove/{token}")
+    @DeleteMapping("/remove/{id}/{token}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") String id, @PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);
         if(!isValid){
@@ -80,7 +81,7 @@ public class UserController {
         return ResponseEntity.ok().body("User deleted");
     }
 
-    @PutMapping("/id/{id}/username/set/{username}/{token}")
+    @PutMapping("/set/username/{username}/on-user/{id}/{token}")
     public ResponseEntity<String> updateUsername(@PathVariable("id") String id, 
             @PathVariable("username") String newUsername, @PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);
@@ -91,7 +92,7 @@ public class UserController {
         return ResponseEntity.ok().body("User updated");
     }
 
-    @PutMapping("/id/{id}/email/set/{email}/{token}")
+    @PutMapping("/set/email/{email}/on-user/{id}/{token}")
     public ResponseEntity<String> updateUseEmail(@PathVariable("id") String id,
             @PathVariable("email") String newUserEmail, @PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);
@@ -112,7 +113,7 @@ public class UserController {
         return ResponseEntity.ok().body("User updated");
     }
 
-    @PutMapping("/id/{id}/fullname/set/{fullname}/{token}")
+    @PutMapping("/set/fullname/{fullname}/on-user/{id}/{token}")
     public ResponseEntity<String> updateUseFullName(@PathVariable("id") String id,
             @PathVariable("fullname") String newUserFullName, @PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);
@@ -123,7 +124,7 @@ public class UserController {
         return ResponseEntity.ok().body("User updated");
     }
 
-    @PutMapping("/id/{id}/set/{occupation}/{token}")
+    @PutMapping("/set/occupation/on-user/{id}/{occupation}/{token}")
     public ResponseEntity<String> updateUserOccupation(@PathVariable("id") String id,
             @PathVariable("occupation") String newUserOccupation, @PathVariable("token") String token){
         boolean isValid = TokenUtils.verifyToken(token);

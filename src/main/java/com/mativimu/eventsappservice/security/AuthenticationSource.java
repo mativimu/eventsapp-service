@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import com.google.common.hash.Hashing;
 import com.mativimu.eventsappservice.domain.user.User;
 import com.mativimu.eventsappservice.domain.user.UserService;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationSource {
@@ -31,7 +32,7 @@ public class AuthenticationSource {
     }
         
     @PostMapping
-    public ResponseEntity<UserCredentials> getUserCredentials(@RequestBody Credentials credentials) throws Exception, IllegalStateException {
+    public ResponseEntity<UserDetails> getUserCredentials(@RequestBody Credentials credentials) throws Exception, IllegalStateException {
         User user = userService.getUserByEmail(credentials.getEmail());
         String credsHashedPassword = Hashing.sha256()
             .hashString(credentials.getPassword(), StandardCharsets.UTF_8).toString();
@@ -44,6 +45,6 @@ public class AuthenticationSource {
         Map<String, String> payload = TokenUtils.generatePayload(user);
         String token = TokenUtils.generateJwt(payload, credentials.getEmail(), keyPair);
         return
-            ResponseEntity.ok().body(new UserCredentials(user, token));
+            ResponseEntity.ok().body(new UserDetails(user, token));
     }
 }

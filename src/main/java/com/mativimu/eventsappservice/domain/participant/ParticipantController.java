@@ -32,7 +32,7 @@ public class ParticipantController  {
         this.userService = userService;
     }
 
-    @GetMapping("/event/id/{id}/{token}")
+    @GetMapping("/from-event/id/{id}/{token}")
     public ResponseEntity<List<User>> getEventParticipants(
                 @PathVariable("id") String id,@PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);

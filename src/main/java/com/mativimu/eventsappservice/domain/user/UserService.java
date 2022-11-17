@@ -23,7 +23,7 @@ public class UserService {
     public User getUserById(Long userId) {
         boolean exists = userRepository.existsById(userId);
         if(!exists) {
-            throw new IllegalStateException("User id " + userId + " not found");
+            throw new IllegalStateException("User not found");
         }
         return userRepository.findById(userId).get();
     }
@@ -31,7 +31,7 @@ public class UserService {
     public User getUserByEmail(String userEmail) {
         List<User> users = userRepository.findUserByEmail(userEmail);
         if(users.isEmpty()) {
-            throw new IllegalStateException("User " + userEmail + " not found");
+            throw new IllegalStateException("User not found");
         }
         return users.get(0);
     }
@@ -40,7 +40,7 @@ public class UserService {
                         String userPassword, String fullName, String userOccupation) {
         List<User> users = userRepository.findUserByEmail(userEmail);
         if(!users.isEmpty()) {
-            throw new IllegalStateException("User email " + userEmail + " already exists");
+            throw new IllegalStateException("User already exists");
         }
         userRepository.save(
             new User(username, userEmail, userPassword, fullName, userOccupation)
@@ -50,7 +50,7 @@ public class UserService {
     public void deleteUser(Long userID) {
         boolean exists = userRepository.existsById(userID);
         if(!exists) {
-            throw new IllegalStateException("User id "+ userID + " not found");
+            throw new IllegalStateException("User not found");
         }
         userRepository.deleteById(userID);
     }
@@ -59,7 +59,7 @@ public class UserService {
     public void updateUsername(Long userID, String newUsername) {
         boolean exists = userRepository.existsById(userID);
         if(!exists) {
-            throw new IllegalStateException("User id " + userID + " not found");
+            throw new IllegalStateException("User not found");
         }
         userRepository.findById(userID).get().
             setUsername(newUsername);
@@ -69,7 +69,7 @@ public class UserService {
     public void updateUserEmail(Long userID, String newUserEmail) {
         boolean exists = userRepository.existsById(userID);
         if(!exists) {
-            throw new IllegalStateException("User id " + userID + " not found");
+            throw new IllegalStateException("User not found");
         }
         userRepository.findById(userID).get()
             .setUserEmail(newUserEmail);
@@ -79,7 +79,7 @@ public class UserService {
     public void updateUserPassword(Long userId, String newPassword) {
         boolean exists = userRepository.existsById(userId);
         if(!exists) {
-            throw new IllegalStateException("User id " + userId + " not found");
+            throw new IllegalStateException("User not found");
         }
         userRepository.findById(userId).get()
             .setUserPassword(newPassword);
@@ -89,17 +89,17 @@ public class UserService {
     public void updateUserFullName(Long userID, String newFullName) {
         boolean exists = userRepository.existsById(userID);
         if(!exists) {
-            throw new IllegalStateException("User id " + userID + " not found");
+            throw new IllegalStateException("User not found");
         }
         userRepository.findById(userID).get()
-            .setFullName(newFullName);
+            .setUserFullName(newFullName);
     }
 
     @Transactional
     public void updateUserOccupation(Long userID, String newUserOccupation) {
         boolean exists = userRepository.existsById(userID);
         if(!exists) {
-            throw new IllegalStateException("User id " + userID + " not found");
+            throw new IllegalStateException("User not found");
         }
         userRepository.findById(userID).get()
             .setUserOccupation(newUserOccupation);

@@ -51,7 +51,7 @@ public class TokenUtils {
         Map<String, String> payload = new HashMap<>();
         payload.put("username", user.getUsername());
         payload.put("email", user.getUserEmail());
-        payload.put("name", user.getFullName());
+        payload.put("name", user.getUserFullName());
         payload.put("password", user.getUserPassword());
         return payload;
     }
@@ -72,7 +72,7 @@ public class TokenUtils {
                 .sign(Algorithm.RSA256((RSAPublicKey)keyPair.getPublic(), (RSAPrivateKey) keyPair.getPrivate()));
     }
 
-    public static boolean verifyToken(String token) throws JWTVerificationException {
+    public static boolean verifyToken(String token) {
         try{
             DecodedJWT jwt = JWT.decode(token);
             String issuer = jwt.getIssuer();
@@ -87,7 +87,7 @@ public class TokenUtils {
             verifier.verify(jwt);
             return true;
         }
-        catch(JWTVerificationException e) {
+        catch(JWTVerificationException | IllegalArgumentException e) {
             return false;
         }
     }

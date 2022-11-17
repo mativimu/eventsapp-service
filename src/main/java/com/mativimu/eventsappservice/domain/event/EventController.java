@@ -103,7 +103,7 @@ public class EventController {
             ResponseEntity.ok().body(createdEvents);
     }
 
-    @PostMapping("/add/owner/id/{user_id}/{token}")
+    @PostMapping("/add/owner/{user_id}/{token}")
     public ResponseEntity<String> addEvent(
                 @PathVariable("token") String token, @RequestBody Event event, @PathVariable("user_id") String userId) {
         boolean isValid = TokenUtils.verifyToken(token);
