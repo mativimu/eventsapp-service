@@ -47,12 +47,12 @@ public class Event {
     @Column(name = "event_type", length = 20)
     private String eventType;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "event_date", nullable = true)
     private Date eventDate;
 
     @Column(name = "created_at")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date createdAt = new Date()     ;
 
     @OneToMany(

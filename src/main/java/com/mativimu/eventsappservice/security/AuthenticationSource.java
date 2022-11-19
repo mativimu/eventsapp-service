@@ -37,7 +37,7 @@ public class AuthenticationSource {
         String credsHashedPassword = Hashing.sha256()
             .hashString(credentials.getPassword(), StandardCharsets.UTF_8).toString();
         if(!user.getUserPassword().equals(credsHashedPassword)) {
-            throw new InvalidParameterException("Incorrect Password");
+            throw new InvalidParameterException("Invalid Password");
         }
         KeyPair keyPair = TokenUtils.keysGenerator();
         TokenUtils.recordPublicKey(credentials.getEmail(), (RSAPublicKey) keyPair.getPublic());

@@ -21,6 +21,9 @@ import com.google.common.hash.Hashing;
 import com.mativimu.eventsappservice.domain.participant.ParticipantService;
 import com.mativimu.eventsappservice.security.TokenUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/events")
 public class EventController {
@@ -110,6 +113,7 @@ public class EventController {
         if(!isValid){
             throw new InvalidParameterException("Invalid Token");
         }
+        log.info("DateTime format extracted from json request: " + event.getEventDate());
         String hashingSource = event.getEventCode() + event.getEventName() + event.getEventType() + event.getEventDate();
         String fingerprint = Hashing.sha256()
             .hashString(hashingSource , StandardCharsets.UTF_8).toString();
