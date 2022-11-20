@@ -20,6 +20,7 @@ import java.util.List;
 import com.google.common.hash.Hashing;
 import com.mativimu.eventsappservice.domain.participant.ParticipantService;
 import com.mativimu.eventsappservice.security.TokenUtils;
+import com.mativimu.eventsappservice.utils.Message;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -107,7 +108,7 @@ public class EventController {
     }
 
     @PostMapping("/add/owner/{user_id}/{token}")
-    public ResponseEntity<String> addEvent(
+    public ResponseEntity<Message> addEvent(
                 @PathVariable("token") String token, @RequestBody Event event, @PathVariable("user_id") String userId) {
         boolean isValid = TokenUtils.verifyToken(token);
         if(!isValid){
@@ -127,11 +128,11 @@ public class EventController {
                 "owner", "false", Long.parseLong(userId),justAddedEvent.getEventId()
             );
         return 
-            ResponseEntity.ok().body("event created");
+            ResponseEntity.ok().body(new Message("event created"));
     }
 
     @DeleteMapping("/remove/{id}/{token}")
-    public ResponseEntity<String> deleteUser(@PathVariable("token") String token, @PathVariable("id") String id) {
+    public ResponseEntity<Message> deleteUser(@PathVariable("token") String token, @PathVariable("id") String id) {
         boolean isValid = TokenUtils.verifyToken(token);
         if(!isValid){
             throw new InvalidParameterException("Invalid Token");
@@ -139,11 +140,11 @@ public class EventController {
         Long userId = Long.parseLong(id);
         eventService.deleteEvent(userId);
         return 
-            ResponseEntity.ok().body("event deleted");
+            ResponseEntity.ok().body(new Message("event deleted"));
     }
 
     @PutMapping("/set/{token}")
-    public ResponseEntity<String> updateEvent(@RequestBody Event event, @PathVariable("token") String token) {
+    public ResponseEntity<Message> updateEvent(@RequestBody Event event, @PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);
         if(!isValid){
             throw new InvalidParameterException("Invalid Token");
@@ -156,7 +157,7 @@ public class EventController {
             event.getEventDate()
         );
         return 
-            ResponseEntity.ok().body("event updated");
+            ResponseEntity.ok().body(new Message("event updated"));
     }
 
 }

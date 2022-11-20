@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mativimu.eventsappservice.domain.user.User;
 import com.mativimu.eventsappservice.domain.user.UserService;
 import com.mativimu.eventsappservice.security.TokenUtils;
+import com.mativimu.eventsappservice.utils.Message;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +51,7 @@ public class ParticipantController  {
     }
 
     @PostMapping("/add/id/{user_id}/status/{status}/event/{event_id}/proof/{proof}/{token}")
-    public ResponseEntity<String> addParticipant(
+    public ResponseEntity<Message> addParticipant(
             @PathVariable("id") String userId, @PathVariable("status") String status,
             @PathVariable("event_id") String eventId, @PathVariable("proof") String proof, @PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);
@@ -58,22 +59,22 @@ public class ParticipantController  {
             throw new InvalidParameterException("Invalid Token");
         }
         participantService.addParticipant(status, proof, Long.parseLong(userId), Long.parseLong(eventId));
-        return ResponseEntity.ok().body("User added to database");
+        return ResponseEntity.ok().body(new Message("User added to database"));
     }
 
     @DeleteMapping("/id/{id}/remove/{token}")
-    public ResponseEntity<String> deleteParticipant(
+    public ResponseEntity<Message> deleteParticipant(
                         @PathVariable("id") String id, @PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);
         if(!isValid){
             throw new InvalidParameterException("Invalid Token");
         }
         participantService.deleteParticipant(Long.parseLong(id));
-        return ResponseEntity.ok().body("User added to database");
+        return ResponseEntity.ok().body(new Message("User added to database"));
     }
 
     @PutMapping("/id/{user_id}/event/{event_id}/set/proof/{token}")
-    public ResponseEntity<String> updateAttendanceProved(@PathVariable("user_id") String userId,
+    public ResponseEntity<Message> updateAttendanceProved(@PathVariable("user_id") String userId,
                         @PathVariable("event_id") String eventId, @PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);
         if(!isValid){
@@ -81,7 +82,7 @@ public class ParticipantController  {
         }
         participantService
             .updateAttendanceProved(Long.parseLong(userId), Long.parseLong(eventId), "true");            
-        return ResponseEntity.ok().body("User added to database");
+        return ResponseEntity.ok().body(new Message("User added to database"));
     }
 
 }

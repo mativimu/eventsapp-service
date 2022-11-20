@@ -14,7 +14,7 @@ import com.mativimu.eventsappservice.domain.user.UserService;
 
 @Service
 public class ParticipantService {
-    
+    //use repository layer for feed this services and make it independent form other services (that is the next commit)
     private final ParticipantRepository participantRepository;
     private final UserService userService;
     private final EventService eventService;
