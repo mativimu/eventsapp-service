@@ -12,6 +12,7 @@ public class UserDetails {
     private String email;
     private String password;
     private String fullname;
+    private String occupation;
     private String token;
 
     public UserDetails(User user, String token) {
@@ -20,6 +21,7 @@ public class UserDetails {
         this.email = user.getUserEmail();
         this.password = user.getUserPassword();
         this.fullname = user.getUserFullName();
+        this.occupation = user.getUserOccupation();
         this.token = token;
     }
 }

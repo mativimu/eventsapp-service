@@ -19,6 +19,9 @@ import com.google.common.hash.Hashing;
 import com.mativimu.eventsappservice.domain.user.User;
 import com.mativimu.eventsappservice.domain.user.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @CrossOrigin
 @RestController
 @RequestMapping("/auth")
@@ -36,6 +39,9 @@ public class AuthenticationSource {
         User user = userService.getUserByEmail(credentials.getEmail());
         String credsHashedPassword = Hashing.sha256()
             .hashString(credentials.getPassword(), StandardCharsets.UTF_8).toString();
+        log.info("Password comparison:");
+        log.info("Password in database " + user.getUserPassword());
+        log.info("Password in request " + credsHashedPassword);
         if(!user.getUserPassword().equals(credsHashedPassword)) {
             throw new InvalidParameterException("Invalid Password");
         }

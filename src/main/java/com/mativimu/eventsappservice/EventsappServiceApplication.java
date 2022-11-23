@@ -60,27 +60,9 @@ public class EventsappServiceApplication {
 				new User(
 				"mativimu",
 				"mativimu@gmail.com",
-				"M4T!",
+				"d7f3fa33e69a29d562d36f95b5a990a6bf4db44ceb2dc70b7bb0750f552b45dc",
 				"Unknown",
-				"Software Developer"
-				)
-			);
-			userRepository.save(
-				new User(
-					"lucy",
-					"lucy@netmail.com",
-					"LUC!",
-					"Unknown",
-					"Netrunner"
-				)
-			);
-			userRepository.save(
-				new User(
-					"becca",
-					"becca@edgemail.com",
-					"B3CC4",
-					"Unknown",
-					"Edgerunner"
+				"Estudiante"
 				)
 			);
 			participantRepository.save(

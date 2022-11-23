@@ -1,10 +1,13 @@
 package com.mativimu.eventsappservice.domain.user;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.hash.Hashing;
 
 @Service
 public class UserService {
@@ -37,13 +40,15 @@ public class UserService {
     }
 
     public void addUser(String username, String userEmail,
-                        String userPassword, String fullName, String userOccupation) {
+                        String userPassword, String userFullName, String userOccupation) {
         List<User> users = userRepository.findUserByEmail(userEmail);
         if(!users.isEmpty()) {
             throw new IllegalStateException("User already exists");
         }
+        String hashedPassword = Hashing.sha256()
+            .hashString(userPassword, StandardCharsets.UTF_8).toString();
         userRepository.save(
-            new User(username, userEmail, userPassword, fullName, userOccupation)
+            new User(username, userEmail, hashedPassword, userFullName, userOccupation)
         );
     }
 

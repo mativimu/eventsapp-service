@@ -128,7 +128,7 @@ public class EventController {
                 "owner", "false", Long.parseLong(userId),justAddedEvent.getEventId()
             );
         return 
-            ResponseEntity.ok().body(new Message("event created"));
+            ResponseEntity.ok().body(new Message("Event Created"));
     }
 
     @DeleteMapping("/remove/{id}/{token}")
@@ -140,7 +140,7 @@ public class EventController {
         Long userId = Long.parseLong(id);
         eventService.deleteEvent(userId);
         return 
-            ResponseEntity.ok().body(new Message("event deleted"));
+            ResponseEntity.ok().body(new Message("Event Deleted"));
     }
 
     @PutMapping("/set/{token}")
@@ -157,7 +157,7 @@ public class EventController {
             event.getEventDate()
         );
         return 
-            ResponseEntity.ok().body(new Message("event updated"));
+            ResponseEntity.ok().body(new Message("Event Updated"));
     }
 
 }

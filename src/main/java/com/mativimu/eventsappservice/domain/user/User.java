@@ -4,10 +4,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.google.common.hash.Hashing;
 import com.mativimu.eventsappservice.domain.participant.Participant;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +63,7 @@ public class User {
                 String userPassword, String userFullName, String userOccupation) {
         this.username = username;
         this.userEmail = userEmail;
-        setUserPassword(userPassword);
+        this.userPassword = userPassword;
         this.userFullName = userFullName;
         this.userOccupation = userOccupation;
     }
@@ -95,9 +93,7 @@ public class User {
     }
 
     public void setUserPassword(String userPassword) {
-        String hashedPassword = Hashing.sha256()
-        .hashString(userPassword, StandardCharsets.UTF_8).toString();
-        this.userPassword = hashedPassword;
+        this.userPassword = userPassword;
     }
 
     public String getUserFullName() {
