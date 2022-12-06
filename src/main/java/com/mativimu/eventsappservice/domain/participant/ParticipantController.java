@@ -13,6 +13,7 @@ import com.mativimu.eventsappservice.domain.user.UserService;
 import com.mativimu.eventsappservice.security.TokenUtils;
 import com.mativimu.eventsappservice.utils.Message;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.http.ResponseEntity;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/participants")
 public class ParticipantController  {
@@ -33,7 +35,7 @@ public class ParticipantController  {
         this.userService = userService;
     }
 
-    @GetMapping("/from-event/id/{id}/{token}")
+    @GetMapping("/from-event/{id}/{token}")
     public ResponseEntity<List<User>> getEventParticipants(
                 @PathVariable("id") String id,@PathVariable("token") String token) {
         boolean isValid = TokenUtils.verifyToken(token);

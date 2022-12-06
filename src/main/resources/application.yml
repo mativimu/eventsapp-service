@@ -3,7 +3,7 @@ spring:
         allow-circular-references: true
     datasource:
         password: 3v3nt$4Pp
-        url: jdbc:mysql://localhost:3306/eventsapp_db
+        url: jdbc:mysql://localhost /eventsapp_db
         username: eventsapp_admin
         driver-class-name: com.mysql.cj.jdbc.Driver
     jpa:

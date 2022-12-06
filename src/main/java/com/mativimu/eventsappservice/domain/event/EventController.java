@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.mativimu.eventsappservice.utils.Message;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/events")
 public class EventController {
@@ -49,7 +51,7 @@ public class EventController {
     }
 
     @GetMapping("/{code}/{token}")
-    public ResponseEntity<List<Event>> getUserByEmail(
+    public ResponseEntity<List<Event>> getEventsByCode(
                 @PathVariable("token") String token, @PathVariable("code") String email) {
         boolean isValid = TokenUtils.verifyToken(token);
         if(!isValid){
@@ -71,7 +73,7 @@ public class EventController {
             ResponseEntity.ok().body(eventService.getEventById((userId)));
     }
 
-    @GetMapping("/subscribed/user/id/{id}/{token}")
+    @GetMapping("/subscribed/user/{id}/{token}")
     public ResponseEntity<List<Event>> getSubscribedEvents(
                 @PathVariable("token") String token, @PathVariable("id") String id) {
         boolean isValid = TokenUtils.verifyToken(token);
