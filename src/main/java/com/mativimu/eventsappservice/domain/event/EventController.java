@@ -1,7 +1,6 @@
 package com.mativimu.eventsappservice.domain.event;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +33,6 @@ public class EventController {
     private final EventService eventService;
     private final ParticipantService participantService;
 
-    @Autowired
     public EventController(EventService eventService, ParticipantService participantService) {
         this.eventService = eventService;
         this.participantService = participantService;
@@ -91,7 +89,7 @@ public class EventController {
             ResponseEntity.ok().body(subscribedEvents);
     }
 
-    @GetMapping("/created/user/id/{id}/{token}")
+    @GetMapping("/created/user/{id}/{token}")
     public ResponseEntity<List<Event>> getCreatedEvents(
                 @PathVariable("token") String token, @PathVariable("id") String id) {
         boolean isValid = TokenUtils.verifyToken(token);
@@ -161,5 +159,4 @@ public class EventController {
         return 
             ResponseEntity.ok().body(new Message("Event Updated"));
     }
-
 }

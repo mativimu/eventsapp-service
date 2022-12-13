@@ -29,7 +29,6 @@ public class AuthenticationSource {
 
     private final UserService userService;
 
-    @Autowired
     public AuthenticationSource(UserService userService) {
         this.userService = userService;
     }

@@ -2,7 +2,6 @@ package com.mativimu.eventsappservice.domain.participant;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +18,6 @@ public class ParticipantService {
     private final UserService userService;
     private final EventService eventService;
 
-    @Autowired
     public ParticipantService(ParticipantRepository participantRepository, 
                                 UserService userService, EventService eventService) {
         this.participantRepository = participantRepository;

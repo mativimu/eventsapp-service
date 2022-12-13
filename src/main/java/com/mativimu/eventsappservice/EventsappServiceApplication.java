@@ -61,7 +61,7 @@ public class EventsappServiceApplication {
 				"mativimu",
 				"mativimu@gmail.com",
 				"d7f3fa33e69a29d562d36f95b5a990a6bf4db44ceb2dc70b7bb0750f552b45dc",
-				"Unknown",
+				"Matías Vigo",
 				"Estudiante"
 				)
 			);
