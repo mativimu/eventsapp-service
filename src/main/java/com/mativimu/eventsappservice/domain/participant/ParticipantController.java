@@ -27,11 +27,9 @@ import org.springframework.http.ResponseEntity;
 public class ParticipantController  {
 
     private final ParticipantService participantService;
-    private final UserService userService;
 
     public ParticipantController(ParticipantService participantService, UserService userService) {
         this.participantService = participantService;
-        this.userService = userService;
     }
 
     @GetMapping("/from-event/{id}/{token}")
@@ -60,7 +58,7 @@ public class ParticipantController  {
 
     @PostMapping("/add/id/{user_id}/status/{status}/event/{event_id}/proof/{proof}/{token}")
     public ResponseEntity<Message> addParticipant(
-            @PathVariable("id") String userId, 
+            @PathVariable("user_id") String userId, 
             @PathVariable("status") String status,
             @PathVariable("event_id") String eventId, 
             @PathVariable("proof") String proof, 
